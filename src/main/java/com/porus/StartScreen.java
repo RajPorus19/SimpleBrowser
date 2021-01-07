@@ -9,30 +9,43 @@ import javafx.stage.Stage;
 public class StartScreen {
 	static private Scene scene;
 	static private WebView webView;
+	static Stage window;
+	public static Button goBackButton;
 	public static void display() {
-		Stage window = new Stage();
+		window = new Stage();
 		window.setTitle("SimpleBrowser");
 
 		StackPane layout = new StackPane();
 
-		Button goBackButton = new Button();
+		goBackButton = new Button();
 		goBackButton.setText("back");
-		goBackButton.setOnAction(e -> layout.getChildren().remove(webView));
+		goBackButton.setOnAction(e -> goBack());
 
 		Button duckButton = new Button();
 		duckButton.setText("duckduckgo.com");
 		duckButton.setOnAction(e -> {
+			goToWebPage("https://duckduckgo.com");
 			layout.getChildren().remove(duckButton);
-			webView = WebPage.load("https://duckduckgo.com");
 			layout.getChildren().addAll(webView, goBackButton);
 		});
 
 		layout.getChildren().add(duckButton);
 
-		Scene scene = new Scene(layout);
+		scene = new Scene(layout, 500, 500);
 		window.setScene(scene);
 		window.show();
 	}
+	public static void goToWebPage(String link) {
+		Scene scene = WebPage.load(link);
+		window.setScene(scene);
+		window.sizeToScene();
+		window.show();
 
+	}
+	public static void goBack() {
+		window.setScene(scene);
+		window.sizeToScene();
+		window.show();
+	}
 
 }

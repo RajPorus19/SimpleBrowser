@@ -11,7 +11,4 @@ public class App extends Application {
 	public void start(Stage window) {
 		StartScreen.display();
 	}
-	private void stuff() {
-		System.out.println("hi");
-	}
 }
